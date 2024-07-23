@@ -1,34 +1,22 @@
-
-ORG 0x0
 BITS 16
 
-main:
-MOV si,os_boot_msg
-call print
-HLT
+section _ENTRY CLASS=CODE
 
-halt:
-JMP halt
+extern _cstart_
 
-print:
-PUSH si
-PUSH ax
-PUSH bx
+global entry
 
-print_loop:
-LODSB
-OR al,al
-JZ done_print
+entry:
+	CLI
+	MOV ax, ds
+	MOV ss, ax
+	MOV sp, 0
+	MOV bp, sp
+	STI
 
-MOV ah, 0x0E
-MOV bh, 0
-INT 0x10
 
-JMP print_loop
-done_print:
-POP bx
-POP ax
-POP si
+	CALL _cstart_
+	
 
-ret
-os_boot_msg: DB 'OS has booted!', 0x0D, 0x0A, 0
+	CLI
+	HLT
