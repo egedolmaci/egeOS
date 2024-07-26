@@ -2,7 +2,10 @@
 #include "stdio.h"
 
 void _cdecl cstart_() {
-	puts("Hello world from C!");
+	int araba = 10;
+	puts("Hello world from C!\r\n");
+	printf("This is printf %d", araba);
+	printf("Second test %s", "string");
 }
 
 
